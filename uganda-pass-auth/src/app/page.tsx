@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { tokenManager } from '@/lib/auth/tokens';
+import { tokenManager } from '@/service/auth/tokens';
 
 export default function HomePage() {
   const router = useRouter();

@@ -1,6 +1,6 @@
-export const LoadingSvg = () => (
+export const LoadingSvg = (props : React.SVGProps<SVGSVGElement>) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    {...props}
     width="137"
     height="137"
     viewBox="0 0 137 137"
@@ -11,7 +11,6 @@ export const LoadingSvg = () => (
       <g transform="matrix(0.0685 0 0 0.0685 68.5 68.5)">
         <foreignObject x="-1067.38" y="-1067.38" width="2134.76" height="2134.76">
           <div
-            
             style={{
               background: 'conic-gradient(from 90deg, rgba(234, 179, 8, 0) 0deg, rgba(234, 179, 8, 1) 360deg)',
               height: '100%',

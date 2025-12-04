@@ -1,9 +1,8 @@
-# 🚀  Partner SSO React Demo
+# 🚀  Partner SSO Next.ts Demo
 
-**OAuth2 + PKCE Demo Application for UG Pass Integration**
+**OAuth2 + PKCE Demo Application for Digital Pass Integration**
 
-This demo application showcases secure OAuth2 integration with UG Pass identity provider, featuring PKCE (Proof Key for Code Exchange) for enhanced security. Built with Next.js, TypeScript, and modern security best practices.
-
+This demo application showcases secure OAuth2 integration with Digital Pass identity provider, featuring PKCE (Proof Key for Code Exchange) for enhanced security. Built with Next.js, TypeScript, and modern security best practices.
 
 ## 🛠️ Tech Stack
 
@@ -11,7 +10,7 @@ This demo application showcases secure OAuth2 integration with UG Pass identity 
 | -------------------- | ----------------------------------------------------------------------------- |
 | **Framework**        | [Next.js v15.3.0](https://nextjs.org/)                                        |
 | **Language**         | TypeScript                                                                    |
-| **Styling**          | Tailwind CSS + AlphaX DS                                            |
+| **Styling**          | Tailwind CSS + AlphaX DS                                                      |
 | **State Management** | [Zustand](https://zustand-demo.pmnd.rs/) – Minimal, scalable state management |
 | **Tooling**          | ESLint, Prettier, TypeScript, Docker                                          |
 | **i18n**             | TypeScript-ready internationalization with locale detection                   |
@@ -29,7 +28,7 @@ This demo application showcases secure OAuth2 integration with UG Pass identity 
 ## 📁 Project Structure
 
 ```
-NEXT-TS-FRONTEND-STARTER/
+NEXT-TS-FRONTEND-DIGITAL/
 ├── src/
 │   ├── app/              → Next.js App Router (pages, layouts, routing)
 │   ├── modules/          → API-based modules (e.g., auth, dashboard)
@@ -58,7 +57,7 @@ NEXT-TS-FRONTEND-STARTER/
 ## 🎯 Key Features
 
 - **OAuth2 + PKCE Implementation** – RFC 7636 compliant PKCE for public clients
-- **Pass Integration** – Direct integration with Uganda Pass identity provider
+- **Pass Integration** – Direct integration with Digital Pass identity provider
 - **Security Best Practices** – State validation, CSRF protection, secure token storage
 - **Type-safe** – Full TypeScript support for OAuth2 flows
 - **Automatic Client Detection** – Supports both public and confidential clients
@@ -73,8 +72,8 @@ NEXT-TS-FRONTEND-STARTER/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Open-State-Stack/next-ts-frontend-starter
-cd next-ts-frontend-starter
+git clone https://github.com/AlphaX-FZO-LLC/partner-sso-react
+cd partner-sso-react
 ```
 
 ### 2. Install Dependencies
@@ -125,7 +124,7 @@ This application implements PKCE (Proof Key for Code Exchange) as per RFC 7636 f
 4. Exchange code + verifier for tokens
 5. Clear verifier after successful exchange
 
-## 🛡️ Security Features
+## Security Features
 
 - **CSRF Protection**: State parameter validation
 - **Code Interception Prevention**: PKCE implementation

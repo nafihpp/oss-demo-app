@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import { const_metadata } from "@/constants/metadata";
 import "./globals.css";
 import { Hanken_Grotesk } from 'next/font/google'
+import { Metadata } from "next";
 
 const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
@@ -12,11 +13,7 @@ const hankenGrotesk = Hanken_Grotesk({
   variable: "--font-hanken-grotesk"
 })
 
-export const metadata: Metadata = {
-  title: "X Pass - AlphaX Secure Digital Identity",
-  description: "Secure Digital Identity Authentication",
-};
-
+export const metadata: Metadata = const_metadata;
 
 export default function RootLayout({
   children,
