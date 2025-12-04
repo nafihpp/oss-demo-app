@@ -29,7 +29,7 @@ export default function AuthLayout({
     <section className="min-h-screen bg-[#0C2B25] flex items-center justify-center p-4">
       <div className="container max-w-6xl mx-auto w-full space-y-6">
         <Card 
-          className="h-auto !border-0 !pb-8 !rounded-4xl" 
+          className="h-auto !border-0 !pb-0 !rounded-4xl" 
           style={{ backgroundImage: 'url(/background-login.svg)' }}
         >
           <CardHeader className="border-b flex justify-between items-center">
@@ -56,7 +56,7 @@ export default function AuthLayout({
             )}
           </CardHeader>
 
-          <CardContent className="flex flex-col lg:flex-row justify-between h-full px-8 !pb-0">
+          <CardContent className="flex flex-col lg:flex-row justify-between h-full !px-8 !pb-0">
             <div className="w-full lg:w-3/4">
               {children}
             </div>
