@@ -1,13 +1,10 @@
-import { Action, Page, permissionsMap } from "@/config/permissions";
-import { useRoleStore } from "@/store/role";
-import { IRole } from "@/types/IRole";
+import { Action, Page, permissionsMap, Role } from "@/config/permissions";
 import { useMemo } from "react";
 
-export const useAccessControl = () => {
-  const { role } = useRoleStore();
+export const useAccessControl = (role?: Role) => {
 
   return useMemo(() => {
-    const currentRole = (role as IRole) || "super_admin";
+    const currentRole = role || "super_admin";
 
     const canViewNavItem = (page: Page) => {
       return permissionsMap[currentRole]?.[page] !== undefined;

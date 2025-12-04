@@ -1,4 +1,4 @@
-import { IRole } from "@/types/IRole";
+export type Role = "super_admin" | "admin" | "user";
 
 export type Page =
   | "Dashboard"
@@ -13,7 +13,7 @@ export type Action = "create" | "read" | "update" | "delete";
 
 export type Permissions = Partial<Record<Page, Action[]>>;
 
-export const permissionsMap: Record<IRole, Permissions> = {
+export const permissionsMap: Record<Role, Permissions> = {
   super_admin: {
     Dashboard: ["create", "read", "update", "delete"],
     Projects: ["create", "read", "update", "delete"],

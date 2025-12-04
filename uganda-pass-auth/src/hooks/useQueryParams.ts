@@ -136,7 +136,7 @@ export const useQueryParam = <T>(
  * // Clear all parameters
  * clearValues();
  */
-export const useQueryParams = <T extends Record<string, any>>(
+export const useQueryParams = <T extends Record<string, unknown>>(
   parserConfig: { [K in keyof T]: Parser<T[K]> },
   options?: QueryParamOptions
 ) => {
@@ -147,7 +147,7 @@ export const useQueryParams = <T extends Record<string, any>>(
    * @param newValues - Partial object with the parameters to update
    */
   const updateValues = useCallback((newValues: Partial<T>) => {
-    setValues(newValues, options);
+    setValues(newValues as Parameters<typeof setValues>[0], options);
   }, [setValues, options]);
 
   /**
@@ -156,7 +156,7 @@ export const useQueryParams = <T extends Record<string, any>>(
    * @param value - The new value, or null to remove the parameter
    */
   const updateValue = useCallback(<K extends keyof T>(key: K, value: T[K] | null) => {
-    setValues({ [key]: value } as Partial<T>, options);
+    setValues({ [key]: value } as Parameters<typeof setValues>[0], options);
   }, [setValues, options]);
 
   /**
@@ -169,13 +169,13 @@ export const useQueryParams = <T extends Record<string, any>>(
       const clearObj = Object.fromEntries(
         keys.map(key => [key, null])
       ) as Partial<T>;
-      setValues(clearObj, options);
+      setValues(clearObj as Parameters<typeof setValues>[0], options);
     } else {
       // Clear all parameters
       const clearObj = Object.fromEntries(
         Object.keys(parserConfig).map(key => [key, null])
       ) as Partial<T>;
-      setValues(clearObj, options);
+      setValues(clearObj as Parameters<typeof setValues>[0], options);
     }
   }, [setValues, parserConfig, options]);
 
@@ -184,7 +184,7 @@ export const useQueryParams = <T extends Record<string, any>>(
    * @param key - The parameter key to clear
    */
   const clearValue = useCallback((key: keyof T) => {
-    setValues({ [key]: null } as Partial<T>, options);
+    setValues({ [key]: null } as Parameters<typeof setValues>[0], options);
   }, [setValues, options]);
 
   return {
