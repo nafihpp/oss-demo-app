@@ -1,16 +1,19 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { const_metadata } from "@/constants/metadata";
 import "./globals.css";
+import { Hanken_Grotesk } from 'next/font/google'
+import { Metadata } from "next";
 
-const inter = Inter({
-  variable: "--font-inter",
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin"],
-});
+  weight: [
+    "100", "200", "300", "400", "500", "600", "700", "800", "900"
+  ],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-hanken-grotesk"
+})
 
-export const metadata: Metadata = {
-  title: " Pass Authentication",
-  description: "Secure Digital Identity Authentication for ",
-};
+export const metadata: Metadata = const_metadata;
 
 export default function RootLayout({
   children,
@@ -20,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} font-sans antialiased`}
+        className={`${hankenGrotesk.className} antialiased`}
       >
         {children}
       </body>

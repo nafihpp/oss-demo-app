@@ -5,18 +5,19 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { CheckCircle, XCircle, Loader2, Bug } from 'lucide-react'
+import { CheckCircle, XCircle,  Bug } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
 import { retrievePKCEVerifier, clearPKCEVerifier } from '@/lib/pkce'
+import { UgovLogo } from "@/assets/icons"
 
 interface DebugInfo {
-  url?: string
-  code?: string
-  state?: string
-  error?: string
+  url             ?: string
+  code            ?: string
+  state           ?: string
+  error           ?: string
   errorDescription?: string
-  storedState?: string
-  authMethod?: string
+  storedState     ?: string
+  authMethod      ?: string
   tokenExchangeError?: string
 }
 
@@ -26,7 +27,6 @@ export default function CallbackPage() {
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [errorDetails, setErrorDetails] = useState('')
-  const [successDetails, setSuccessDetails] = useState('')
   const [debugInfo, setDebugInfo] = useState<DebugInfo>({})
   
   const router = useRouter()
@@ -117,9 +117,9 @@ export default function CallbackPage() {
         throw new Error(`Token exchange failed (${response.status}): ${responseData.error || responseData.message || 'Unknown error'}`)
       }
 
-      sessionStorage.setItem('access_token', responseData.access_token)
+      localStorage.setItem('access_token', responseData.access_token)
       if (responseData.refresh_token) {
-        sessionStorage.setItem('refresh_token', responseData.refresh_token)
+        localStorage.setItem('refresh_token', responseData.refresh_token)
       }
 
       showSuccess(responseData)
@@ -146,13 +146,10 @@ export default function CallbackPage() {
 
     const details = `Token Type: ${tokenData.token_type || 'Bearer'}
 Expires In: ${tokenData.expires_in || 'N/A'} seconds
-Auth Method: ${tokenData.auth_method || sessionStorage.getItem('auth_method') || 'N/A'}
+Auth Method: ${tokenData.auth_method || localStorage.getItem('auth_method') || 'N/A'}
 Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30) + '...' : 'N/A'}`
-    
-    setSuccessDetails(details)
-
     setTimeout(() => {
-      router.push('/en/dashboard')
+      router.push('/');
     }, 3000)
   }
 
@@ -164,11 +161,11 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4" style={{backgroundImage: 'url(/background.svg)'}}>
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+            <div className="w-16 h-16 flex items-center justify-center mx-auto mb-4 animate-spin">
+              <UgovLogo />
             </div>
             <CardTitle className="text-2xl">Processing Authentication</CardTitle>
           </CardHeader>
@@ -182,7 +179,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="min-h-screen flex items-center justify-center p-4" style={{backgroundImage: 'url(/background.svg)'}}>
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -192,11 +189,8 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-center text-gray-600">
-              You have been successfully authenticated. Redirecting to dashboard...
+              You have been successfully authenticated. Wait Until We Redirect You...
             </p>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <pre className="text-xs text-gray-700 whitespace-pre-wrap">{successDetails}</pre>
-            </div>
           </CardContent>
         </Card>
       </div>
@@ -205,7 +199,7 @@ Access Token: ${tokenData.access_token ? tokenData.access_token.substring(0, 30)
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-yellow-400 to-red-600 flex items-center justify-center p-4">
+      <div className="min-h-screen  flex items-center justify-center p-4" style={{backgroundImage: 'url(/background.svg)'}}>
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">

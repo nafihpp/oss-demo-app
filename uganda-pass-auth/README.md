@@ -1,21 +1,22 @@
-# Uganda Pass Authentication Frontend
+# Digital Pass Authentication 
 
-A standalone Next.js application that provides authentication for the Uganda Pass digital identity system. This app handles both direct login and OAuth2/SSO flows.
+A standalone Next.js application that provides authentication for the Digital Pass digital identity system. This app handles both direct login and OAuth2/SSO flows.
 
 ## Features
 
 - **WebAuthn/Passkey Authentication**: Biometric authentication using platform authenticators
-- **Digital Pass Authentication**: Mobile-based challenge-response authentication
-- **OAuth2 Integration**: Seamless integration with third-party applications
-- **Real-time Updates**: Server-Sent Events for instant status updates
-- **Responsive Design**: Mobile-first design with Uganda government branding
+- **Digital Pass Authentication**: Phone-based challenge-response authentication with real-time monitoring
+- **OAuth2 Integration**: Seamless integration with third-party applications and partner SSO
+- **Server-Sent Events**: Real-time status updates with polling fallback for challenge monitoring
+- **Responsive Design**: Mobile-first design with modern UI components
+- **Type-Safe**: Full TypeScript coverage with comprehensive error handling
 
 ## Development Setup
 
 ### Prerequisites
 
 - Node.js 18+ 
-- Backend API running at `http://localhost:3000`
+- Backend API running (Digital Pass authentication service)
 
 ### Installation
 
@@ -29,6 +30,9 @@ Configure `.env.local`:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000/api/v1
+NODE_ENV=development
+
+#Webauthn
 NEXT_PUBLIC_APP_NAME="Uganda Pass Authentication"
 NEXT_PUBLIC_WEBAUTHN_RP_ID=localhost
 NEXT_PUBLIC_WEBAUTHN_RP_NAME="Uganda Pass"
@@ -45,16 +49,16 @@ Access the application at `http://localhost:3000`
 
 ## Usage Scenarios
 
-### Direct Login
-Visit `http://localhost:3000/login` to authenticate and access the dashboard.
+### Authentication Flow
+Visit `http://localhost:3000/login` for phone-based Digital Pass authentication.
 
-### OAuth2 Flow
-Third-party applications redirect to:
+### OAuth2 Integration
+Partner applications can redirect users for SSO:
 ```
 http://localhost:3000/login?client_id=partner123&redirect_uri=https://partner.com/callback&state=xyz
 ```
 
-After authentication, users are redirected back to the partner with an authorization code.
+Users authenticate via phone number and Digital Pass challenge, then are redirected back with authorization code.
 
 ## Architecture
 
@@ -62,14 +66,15 @@ After authentication, users are redirected back to the partner with an authoriza
 src/
 ├── app/
 │   ├── login/           # Authentication page
-│   ├── dashboard/       # User dashboard (direct login)
-│   └── api/            # API routes for token management
+│   └── api/auth/        # Token management API routes
 ├── components/
-│   ├── auth/           # Authentication components
-│   ├── dashboard/      # Dashboard components
-│   └── ui/             # Shared UI components
-└── lib/
-    └── auth/           # Authentication utilities
+│   ├── auth/           # Modular authentication components (8 files)
+│   ├── ui/             # shadcn/ui component library
+│   └── loading.tsx     # Loading component
+├── constants/          # Authentication constants and app metadata
+├── service/            # API services and interceptors
+├── types/              # TypeScript type definitions
+└── utils/              # Styling and validation utilities
 ```
 
 ## Security
@@ -85,7 +90,7 @@ src/
 This frontend consumes the following backend APIs:
 
 - `/auth/webauthn/authenticate/*` - WebAuthn authentication
-- `/auth/digital-pass/*` - Digital Pass authentication
-- `/auth/authorize` - OAuth2 authorization
-- `/auth/verify` - Session verification
-- `/auth/token` - Token exchange
+- `/auth/digital-pass/initiate` - Start Digital Pass authentication
+- `/auth/digital-pass/status` - Challenge status monitoring (SSE)
+- `/auth/authorize` - OAuth2 authorization endpoint
+- `/auth/token` - Token exchange and management

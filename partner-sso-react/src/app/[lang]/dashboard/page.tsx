@@ -8,11 +8,11 @@ import { Badge } from '@/components/ui/badge'
 import { Key, RefreshCw, LogOut, Loader2, Copy, CheckCircle, Clock } from 'lucide-react'
 
 interface TokenInfo {
-  access_token: string
-  refresh_token?: string
-  token_type?: string
-  expires_in?: number
-  auth_method?: string
+  access_token   : string
+  refresh_token? : string
+  token_type?    : string
+  expires_in?    : number
+  auth_method?   : string
 }
 
 export default function DashboardPage() {
